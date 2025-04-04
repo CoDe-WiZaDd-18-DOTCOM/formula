@@ -13,7 +13,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create-user")
+    @PostMapping("/public/create-user")
     public String hello() {
         User user = new User();
         user.setName("bob");
