@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FormResponseRepository extends MongoRepository<FormResponse,String> {
 
+    FormResponse findByFormTemplateId(String formTemplateId);
 }
