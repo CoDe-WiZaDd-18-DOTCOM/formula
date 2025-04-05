@@ -28,8 +28,8 @@ public class FormTemplateController {
         }
     }
 
-    @GetMapping("/forms/{ownerId}/{id}")
-    public ResponseEntity<FormTemplate> getone(@PathVariable String ownerId,@PathVariable String id){
+    @GetMapping("/forms/id/{id}")
+    public ResponseEntity<FormTemplate> getone(@PathVariable String id){
         try {
             FormTemplate formTemplate = formTemplateService.getForm(id);
             return new ResponseEntity<>(formTemplate,HttpStatus.OK);
