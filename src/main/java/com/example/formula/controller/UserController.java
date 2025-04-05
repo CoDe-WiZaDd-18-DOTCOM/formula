@@ -39,12 +39,17 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<User> createUser(@RequestBody Map<String, String> payload){
-        User dummy = new User();
-        dummy.setEmail(payload.get("email"));
-        dummy.setAuthid(payload.get("AuthOid"));
-        dummy.setName(payload.get("name"));
-        User us = userService.SaveUser(dummy);
-        if(us==null) return new ResponseEntity<>(HttpStatus.MULTIPLE_CHOICES);
-        return new ResponseEntity<>(us,HttpStatus.CREATED);
+        try{
+            User dummy = new User();
+            dummy.setEmail(payload.get("email"));
+            dummy.setAuthid(payload.get("AuthOid"));
+            dummy.setName(payload.get("name"));
+            User us = userService.SaveUser(dummy);
+            if(us==null) return new ResponseEntity<>(HttpStatus.MULTIPLE_CHOICES);
+            return new ResponseEntity<>(us,HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
