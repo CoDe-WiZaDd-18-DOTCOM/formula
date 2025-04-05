@@ -32,7 +32,7 @@ public class FormResponseController {
     }
 
     @PostMapping("/public/form-responses")
-    public ResponseEntity<?> createFormResponse(@RequestBody FormResponseRequest request) {
+    public ResponseEntity<?> createFormResponse(@RequestBody FormResponse request) {
         try{
             formResponseService.saveFormResponse(request);
             return ResponseEntity.ok(request);
