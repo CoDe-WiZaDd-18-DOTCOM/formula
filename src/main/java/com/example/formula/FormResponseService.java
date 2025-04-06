@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,10 +20,11 @@ public class FormResponseService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public FormResponse getFormResponse(String formTemplateId) {
-        FormResponse response = formResponseRepository.findByFormTemplateId(formTemplateId);
+    public List<FormResponse> getFormResponse(String formTemplateId) {
+        List<FormResponse> response = formResponseRepository.findAllByFormTemplateId(formTemplateId);
         return response;
     }
+
 
     public void saveFormResponse(FormResponse request) {
         FormResponse response = new FormResponse();
