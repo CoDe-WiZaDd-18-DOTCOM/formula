@@ -16,5 +16,7 @@ public class FormTemplate {
     private String description;
     private String ownerId;
     private List<FormField> fields;
+
+    private List<FieldCondition> fieldConditions;
 }
 
