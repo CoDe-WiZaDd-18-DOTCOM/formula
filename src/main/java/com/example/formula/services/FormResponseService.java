@@ -1,16 +1,12 @@
-package com.example.formula;
+package com.example.formula.services;
 
-import com.example.formula.dto.FormResponseRequest;
 import com.example.formula.entity.FormResponse;
 import com.example.formula.repository.FormResponseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FormResponseService {
