@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="users")
-@Data
-@NoArgsConstructor
 public class User {
 
     @Id
@@ -25,4 +23,37 @@ public class User {
     @NonNull
     private String email;
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getName() {
+        return name;
+    }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    public String getAuthid() {
+        return authid;
+    }
+
+    public void setAuthid(String authid) {
+        this.authid = authid;
+    }
+
+    @NonNull
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
 }

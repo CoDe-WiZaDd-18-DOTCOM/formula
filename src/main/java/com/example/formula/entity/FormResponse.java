@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 @Document(collection = "form_responses")
-@Data
-@NoArgsConstructor
 public class FormResponse {
     @Id
     private String id;
@@ -19,5 +17,37 @@ public class FormResponse {
     private String responderId;
     private Map<String, List<Object>> answers;
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFormTemplateId() {
+        return formTemplateId;
+    }
+
+    public void setFormTemplateId(String formTemplateId) {
+        this.formTemplateId = formTemplateId;
+    }
+
+    public String getResponderId() {
+        return responderId;
+    }
+
+    public void setResponderId(String responderId) {
+        this.responderId = responderId;
+    }
+
+    public Map<String, List<Object>> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Map<String, List<Object>> answers) {
+        this.answers = answers;
+    }
 }
 
