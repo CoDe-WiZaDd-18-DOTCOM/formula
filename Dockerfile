@@ -1,14 +1,30 @@
-# Use an official OpenJDK runtime as a parent image
-FROM eclipse-temurin:21-jre-alpine
-
-# Set working directory inside the container
+# -------- Build Stage --------
+FROM eclipse-temurin:21-alpine AS build
 WORKDIR /app
 
-# Copy the jar file (after build) into the container
-COPY target/formula-0.0.1-SNAPSHOT.jar app.jar
+# Copy wrapper files and pom.xml first (helps Docker cache them)
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
 
-# Expose port (Render uses $PORT env, we handle it in application.properties)
+# Give execution permission to mvnw
+RUN chmod +x mvnw
+
+# Copy the rest of the source code
+COPY src ./src
+
+# Build the project using Maven Wrapper
+RUN ./mvnw clean package -DskipTests
+
+# -------- Run Stage --------
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Copy built jar from build stage
+COPY --from=build /app/target/formula-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose port
 EXPOSE 8080
 
-# Run the jar file
+# Start the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
