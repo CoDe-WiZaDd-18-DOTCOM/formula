@@ -1,30 +1,31 @@
-# -------- Build Stage --------
+# ---------- Stage 1: Build ----------
 FROM eclipse-temurin:21-alpine AS build
 WORKDIR /app
 
-# Copy wrapper files and pom.xml first (helps Docker cache them)
-COPY mvnw .
+# Copy Maven wrapper and project files
 COPY .mvn .mvn
+COPY mvnw .
 COPY pom.xml .
 
-# Give execution permission to mvnw
+# Give execute permissions to mvnw
 RUN chmod +x mvnw
 
-# Copy the rest of the source code
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy source files
 COPY src ./src
 
-# Build the project using Maven Wrapper
+# Build the project
 RUN ./mvnw clean package -DskipTests
 
-# -------- Run Stage --------
+# ---------- Stage 2: Run ----------
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Copy built jar from build stage
+# Copy jar from builder stage
 COPY --from=build /app/target/formula-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose port
-EXPOSE 8080
-
-# Start the Spring Boot app
+# Use dynamic port
+EXPOSE 5002
 ENTRYPOINT ["java", "-jar", "app.jar"]
