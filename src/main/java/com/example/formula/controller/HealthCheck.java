@@ -9,4 +9,9 @@ public class HealthCheck {
     public String ok(){
         return "ok";
     }
+
+    @GetMapping("/secure/hello")
+    public String secureHello() {
+        return "✅ JWT is valid! You have accessed a protected endpoint.";
+    }
 }
