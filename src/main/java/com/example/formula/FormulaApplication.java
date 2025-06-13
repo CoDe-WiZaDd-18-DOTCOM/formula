@@ -8,20 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FormulaApplication implements CommandLineRunner {
-
-	@Autowired
-	private JwtUtil jwtUtil;
-
+public class FormulaApplication{
 	public static void main(String[] args) {
 		Dotenv dotenv = Dotenv.configure().load();
 		System.setProperty("MONGO_URI", dotenv.get("MONGO_URI"));
 		SpringApplication.run(FormulaApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		String token = jwtUtil.generateToken("test1");
-		System.out.println("✅ JWT Token: " + token);
 	}
 }
